@@ -1,21 +1,16 @@
+import { PrismaClient } from '@prisma/client';
 import 'server-only';
-import { Generated, Kysely } from 'kysely';
-import { PlanetScaleDialect } from 'kysely-planetscale';
 
-interface User {
-  id: Generated<number>;
-  name: string;
-  username: string;
-  email: string;
-}
+// PrismaClient is attached to the `global` object in development to prevent
+// exhausting your database connection limit.
+//
+// Learn more:
+// https://pris.ly/d/help/next-js-best-practices
 
-interface Database {
-  users: User;
-  // https://github.com/nextauthjs/next-auth/issues/4922
-}
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
-export const queryBuilder = new Kysely<Database>({
-  dialect: new PlanetScaleDialect({
-    url: process.env.DATABASE_URL
-  })
-});
+export const prisma = globalForPrisma.prisma || new PrismaClient();
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+
+export default prisma;

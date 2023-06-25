@@ -14,7 +14,7 @@ type UsersResponseBody = {
 
 type UsersOkResponse = NextResponse<UsersResponseBody>;
 
-export async function GET(request: Request): UsersOkResponse | ErrorResponse {
+export async function GET(request: Request): Promise<UsersOkResponse | ErrorResponse> {
   const { searchParams } = new URL(request.url);
   const search = searchParams.get('search');
   if (search == null)
@@ -24,7 +24,7 @@ export async function GET(request: Request): UsersOkResponse | ErrorResponse {
       name: {
         contains: search
       }
-    }
+    },
   });
   return users;
 }

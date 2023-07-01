@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { StatusCodes } from 'http-status-codes';
 
 type ErrorResponseBody = {
   message: string;
@@ -6,16 +7,25 @@ type ErrorResponseBody = {
 
 export type ErrorResponse = NextResponse<ErrorResponseBody>;
 
-const createErrorResponse = (message: string): ErrorResponse => {
-  return NextResponse.json({
-    message
-  });
+const createErrorResponse = (
+  message: string,
+  statusCode: number
+): ErrorResponse => {
+  return NextResponse.json(
+    {
+      message
+    },
+    {
+      status: statusCode
+    }
+  );
 };
 
 export const createMissingQueryParameterBadRequestResponse = (
   missingQueryParameterName: string
 ): ErrorResponse => {
   return createErrorResponse(
-    `Missing required property: '${missingQueryParameterName}'`
+    `Missing required property: '${missingQueryParameterName}'`,
+    StatusCodes.BAD_REQUEST
   );
 };

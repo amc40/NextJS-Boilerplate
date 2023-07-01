@@ -6,7 +6,7 @@ import {
 } from '../utils/error-responses';
 
 type UsersResponseBody = {
-  id: string;
+  id: number;
   email: string;
   name: string | null;
   username: string | null;

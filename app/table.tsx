@@ -26,7 +26,7 @@ export default async function UsersTable({ users }: { users: User[] }) {
         </TableRow>
       </TableHead>
       <TableBody>
-        {users.map((user) => (
+        {users?.map((user) => (
           <TableRow key={user.id}>
             <TableCell>{user.name}</TableCell>
             <TableCell>

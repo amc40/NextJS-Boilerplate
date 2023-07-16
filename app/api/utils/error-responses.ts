@@ -29,3 +29,7 @@ export const createMissingQueryParameterBadRequestResponse = (
     StatusCodes.BAD_REQUEST
   );
 };
+
+export const createUnauthorizedResponse = (): ErrorResponse => {
+  return createErrorResponse("Intruder detected", StatusCodes.UNAUTHORIZED);
+}

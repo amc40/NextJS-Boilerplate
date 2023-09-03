@@ -1,6 +1,7 @@
 import { Card, Title, Text } from '@tremor/react';
 import Search from './search';
 import UsersTable from './table';
+import prisma from '../lib/planetscale';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,7 +11,13 @@ export default async function IndexPage({
   searchParams: { q: string };
 }) {
   const search = searchParams.q ?? '';
-  const users = await (await fetch(`http://localhost:3000/api/users?search=${search}`)).json();
+  const users = await prisma.user.findMany({
+    where: {
+      name: {
+        contains: search
+      }
+    }
+  });
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">

@@ -5,6 +5,8 @@ import Nav from './nav';
 import Toast from './toast';
 import { Suspense } from 'react';
 
+
+
 export const metadata = {
   title: 'Next.js 13 + PlanetScale + NextAuth + Tailwind CSS',
   description:

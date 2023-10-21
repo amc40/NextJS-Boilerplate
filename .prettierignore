@@ -32,3 +32,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# .github as pipeline linter doesn't have permission to write to .github dir
+.github

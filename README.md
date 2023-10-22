@@ -13,8 +13,9 @@ It uses:
 
 ## TODO
 
-- [] Determine why there is a server error when deploying to vercel
-- [] Integrate prisma workflow with planetscale
-- [] Use terraform to create github repo with sensible configuration
-- [] Use terraform to create Azure App Registration
-- [] Figure out how to allow authentication for preview deployments (shouldn't use wildcards for oath redirects)
+- [ ] Determine why there is a server error when deploying to vercel
+- [ ] Integrate prisma workflow with planetscale
+- [ ] Use terraform to create github repo with sensible configuration
+- [ ] Use terraform to create Azure App Registration
+- [ ] Figure out how to allow authentication for preview deployments (shouldn't use wildcards for oath redirects)
+- [ ] Add e2e testing (using playwright?)

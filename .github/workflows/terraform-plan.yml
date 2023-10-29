@@ -14,6 +14,9 @@ jobs:
   plan-terraform:
     runs-on: ubuntu-latest
 
+    permissions:
+      issues: write
+
     defaults:
       run:
         working-directory: ./terraform

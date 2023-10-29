@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      issues: write
+      pull-requests: write
 
     defaults:
       run:
@@ -52,11 +52,9 @@ jobs:
           retention-days: 30
 
       - name: Post Plan to GitHub PR
-        uses: mshick/add-pr-comment@v1
+        uses: mshick/add-pr-comment@v2
         with:
           allow-repeats: true
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]'
           message: |
             ## Terraform Plan
             ```

@@ -31,12 +31,15 @@ jobs:
         run: terraform init
       
       - name: Terraform plan
+        id: plan
         run: | 
           terraform plan \
             -out=tfplan \
             -var="vercel_api_token=${{secrets.VERCEL_TERRAFORM_API_TOKEN}}" \
             -var="vercel_protected_deployment_password=${{secrets.VERCEL_PROTECTED_DEPLOYMENT_PASSWORD}}" \
-            -var="github_repository_name=${{github.event.repository.name}}"
+            -var="github_repository_name=${{github.event.repository.name}}" \
+            -input=false \
+            -no-color
 
       - name: Upload Terraform plan artifact
         uses: actions/upload-artifact@v2
@@ -45,10 +48,14 @@ jobs:
           path: terraform/tfplan
           retention-days: 30
 
-      - name: Comment Terraform Plan on PR
-        uses: blinqas/tf-plan-pr-comment@v1
+      - name: Post Plan to GitHub PR
+        uses: mshick/add-pr-comment@v1
         with:
-          output_file: tfplan
-          headline: "### Terraform Plan"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          allow-repeats: true
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]'
+          message: |
+            ## Terraform Plan
+            ```
+            ${{ steps.plan.outputs.stdout || steps.plan.outputs.stderr }}
+            ```        

@@ -15,8 +15,8 @@ permissions:
   contents: write
 
 jobs:
-  run-linters:
-    name: Run linters
+  run-application-code-linters:
+    name: Run application code linters
     runs-on: ubuntu-latest
 
     steps:
@@ -39,3 +39,31 @@ jobs:
           eslint: true
           prettier: true
           tsc: true
+  run-terraform-linter:
+    name: Run terraform linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: terraform fmt
+        uses: dflook/terraform-fmt@v1
+        with:
+          path: terraform
+
+      - name: Check for Differences
+        id: git-status
+        run: |
+          git diff --quiet || echo "Changes found"
+        continue-on-error: true
+
+      - name: Commit Changes
+        if: steps.git-status.outcome == 'success'
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
+          add_timestamp: true
+          commit_prefix: "[AUTO]"
+          commit_message: "Fix terraform formatting"
+          force: false
+          target_branch: update/version

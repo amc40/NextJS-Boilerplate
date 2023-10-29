@@ -26,6 +26,8 @@ It uses:
 
 ## TODO
 
+- [x] Determine why there is a server error when deploying to vercel
+- [ ] Integrate prisma workflow with planetscale
 - [ ] Add github auth provider
 - [ ] Automatic rebase of fork
 - [ ] Integrate prisma workflow with planetscale (shouldn't be using prod data in preview deployments)

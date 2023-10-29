@@ -41,7 +41,7 @@ jobs:
               -var="vercel_protected_deployment_password=${{secrets.VERCEL_PROTECTED_DEPLOYMENT_PASSWORD}}" \
               -var="github_repository_name=${{github.event.repository.name}}" \
               -input=false \
-              -no-color"
+              -no-color)"
           out="$(echo "${out}" | grep -v "Refreshing state")"
           out="$(echo -n "$out" | tail -c 60000)"
           echo "::set-output name=output::$out"

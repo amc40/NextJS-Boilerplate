@@ -32,7 +32,7 @@ jobs:
         run: | 
           terraform plan \
             -out=tfplan \
-            -var="vercel_api_token=${{secrets.VERCEL_API_TOKEN}}" \
+            -var="vercel_api_token=${{secrets.VERCEL_TOKEN}}" \
             -var="vercel_protected_deployment_password=${{secrets.VERCEL_PROTECTED_DEPLOYMENT_PASSWORD}}" \
             -var="github_repository_name=${{github.event.repository.name}}"
 

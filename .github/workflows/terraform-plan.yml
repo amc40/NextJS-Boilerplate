@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - '**.tf'
 
 jobs:
   plan-terraform:
@@ -42,3 +44,11 @@ jobs:
           name: terraform-plan-${{ github.sha }}
           path: terraform/tfplan
           retention-days: 30
+
+      - name: Comment Terraform Plan on PR
+        uses: blinqas/tf-plan-pr-comment@v1
+        with:
+          output_file: 'terraform/tfplan'
+          headline: "### Terraform Plan"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

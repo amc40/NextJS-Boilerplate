@@ -26,9 +26,12 @@ It uses:
 
 ## TODO
 
-- [-] Determine why there is a server error when deploying to vercel
-- [ ] Integrate prisma workflow with planetscale
+- [ ] Add github auth provider
+- [ ] Automatic rebase of fork
+- [ ] Integrate prisma workflow with planetscale (shouldn't be using prod data in preview deployments)
 - [ ] Use terraform to create github repo with sensible configuration
-- [ ] Use terraform to create Azure App Registration
-- [ ] Figure out how to allow authentication for preview deployments (shouldn't use wildcards for oath redirects)
+- [ ] Use terraform to create Azure App Registration and similar in GitHub
+- [ ] Figure out how to allow authentication for preview deployments (shouldn't use wildcards for oath redirects) (can this be added on deployment with terraform??)
 - [ ] Add e2e testing (using playwright?)
+- [ ] Set up monitoring / alerting (new relic)
+- [ ] Traffic mirroring?

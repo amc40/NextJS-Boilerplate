@@ -11,9 +11,22 @@ It uses:
 - Github actions
 - Vercel for deploying the site
 
+## Manual Setup Steps
+
+1. Create [`.env`](./.env) file
+   1. Generate planetscale login
+   1. Fill in `DATABASE_URL`
+   1. Generate `NEXTAUTH_SECRET` and fill in
+   1. Fill in Azure Environment variables
+1. Configure Vercel project environment variables
+   1. Generate new planetscale login
+   1. Fill in `DATABASE_URL`
+   1. Generate `NEXTAUTH_SECRET` and fill in
+   1. Set `NEXTAUTH_URL` to the one allocated by Vercel
+
 ## TODO
 
-- [ ] Determine why there is a server error when deploying to vercel
+- [-] Determine why there is a server error when deploying to vercel
 - [ ] Integrate prisma workflow with planetscale
 - [ ] Use terraform to create github repo with sensible configuration
 - [ ] Use terraform to create Azure App Registration

@@ -1,6 +1,6 @@
 variable "vercel_api_token" {
   description = "Full-Access Vercel API token obtained from https://vercel.com/account/tokens."
-  type        = string
+  type        =   string
   sensitive   = true
   nullable    = false
 }

@@ -27,7 +27,6 @@ It uses:
 ## TODO
 
 - [ ] Add github auth provider
-- [ ] Automatic rebase of fork
 - [ ] Integrate prisma workflow with planetscale (shouldn't be using prod data in preview deployments)
 - [ ] Use terraform to create github repo with sensible configuration
 - [ ] Use terraform to create Azure App Registration and similar in GitHub

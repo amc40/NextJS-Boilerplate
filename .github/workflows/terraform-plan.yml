@@ -36,6 +36,11 @@ jobs:
       
       - name: Initialize Terraform
         run: terraform init
+
+      - name: terraform validate
+        uses: dflook/terraform-validate@v1
+        with:
+          path: terraform
       
       - name: terraform plan
         uses: dflook/terraform-plan@v1

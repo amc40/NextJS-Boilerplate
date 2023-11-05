@@ -15,10 +15,5 @@ resource "vercel_project" "vercel_project_with_github" {
     repo = "amc40/${var.github_repository_name}"
   }
   serverless_function_region = "lhr1"
-  password_protection = {
-    password = var.vercel_protected_deployment_password
-    # Remove to release
-    protect_production = true
-  }
 }
 

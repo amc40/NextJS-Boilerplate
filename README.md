@@ -13,7 +13,7 @@ It uses:
 
 ## Manual Setup Steps
 
-1. Create workspace in [Terraform Cloud](https://app.terraform.io/) and link to repository 
+1. Create workspace in [Terraform Cloud](https://app.terraform.io/) and link to repository
 1. Create [`.env`](./.env) file
    1. Generate planetscale login
    1. Fill in `DATABASE_URL`

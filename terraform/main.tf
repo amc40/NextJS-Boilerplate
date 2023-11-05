@@ -12,8 +12,7 @@ provider "vercel" {
 }
 
 module "vercel_project_custom" {
-  source                               = "./modules/vercel-project"
-  github_repository_name               = var.github_repository_name
-  vercel_protected_deployment_password = var.vercel_protected_deployment_password
+  source                 = "./modules/vercel-project"
+  github_repository_name = var.github_repository_name
 }
 

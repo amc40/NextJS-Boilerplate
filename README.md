@@ -13,6 +13,7 @@ It uses:
 
 ## Manual Setup Steps
 
+1. Create workspace in [Terraform Cloud](https://app.terraform.io/) and link to repository
 1. Create [`.env`](./.env) file
    1. Generate planetscale login
    1. Fill in `DATABASE_URL`
@@ -26,6 +27,8 @@ It uses:
 
 ## TODO
 
+- [x] Determine why there is a server error when deploying to vercel
+- [ ] Integrate prisma workflow with planetscale
 - [ ] Add github auth provider
 - [ ] Automatic rebase of fork
 - [ ] Integrate prisma workflow with planetscale (shouldn't be using prod data in preview deployments)

@@ -48,5 +48,4 @@ jobs:
           path: terraform
           variables: |
             vercel_api_token = "${{secrets.VERCEL_TERRAFORM_API_TOKEN}}"
-            vercel_protected_deployment_password = "${{secrets.VERCEL_PROTECTED_DEPLOYMENT_PASSWORD}}"
             github_repository_name = "${{github.event.repository.name}}"

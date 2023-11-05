@@ -8,7 +8,7 @@ terraform {
 }
 
 resource "vercel_project" "vercel_project_with_github" {
-  name               = lower(var.github_repository_name)
+  name      = lower(var.github_repository_name)
   framework = "nextjs"
   git_repository = {
     type = "github"

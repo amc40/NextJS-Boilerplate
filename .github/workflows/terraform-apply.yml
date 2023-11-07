@@ -31,6 +31,8 @@ jobs:
           path: terraform
           variables: |
             vercel_api_token = "${{secrets.VERCEL_TERRAFORM_API_TOKEN}}"
+            planetscale_service_token_id = "${{secrets.PLANETSCALE_SERVICE_TOKEN_ID}}"
+            planetscale_service_token = "${{secrets.PLANETSCALE_SERVICE_TOKEN}}"
             github_repository_name = "${{github.event.repository.name}}"
           # only auto approve for manual runs
           auto_approve: ${{ github.event_name }} == 'workflow_dispatch'

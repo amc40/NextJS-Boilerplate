@@ -24,13 +24,14 @@ It uses:
    1. Fill in `DATABASE_URL`
    1. Generate `NEXTAUTH_SECRET` and fill in
    1. Set `NEXTAUTH_URL` to the one allocated by Vercel
+1. If running terraform locally create [`.tfvars`](terraform/terraform.tfvars) file providing values for variables from [`variables.tf`](terraform/variables.tf)
+1. Add the Github environment variables listed on this project (see [here](https://github.com/amc40/NextJS-Boilerplate/settings/secrets/actions)) to the forked repo
 
 ## TODO
 
 - [x] Determine why there is a server error when deploying to vercel
 - [ ] Integrate prisma workflow with planetscale
 - [ ] Add github auth provider
-- [ ] Automatic rebase of fork
 - [ ] Integrate prisma workflow with planetscale (shouldn't be using prod data in preview deployments)
 - [ ] Use terraform to create github repo with sensible configuration
 - [ ] Use terraform to create Azure App Registration and similar in GitHub

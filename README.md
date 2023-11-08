@@ -25,6 +25,10 @@ It uses:
    1. Generate `NEXTAUTH_SECRET` and fill in
    1. Set `NEXTAUTH_URL` to the one allocated by Vercel
 
+## Limitations
+
+1. Only one schema migration PR can be open at any one time
+
 ## TODO
 
 - [x] Determine why there is a server error when deploying to vercel

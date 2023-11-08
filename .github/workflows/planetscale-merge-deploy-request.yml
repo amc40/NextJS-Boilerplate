@@ -1,24 +1,22 @@
-name: Create a Planetscale branch
+name: Deploy a deploy request
 on:
   pull_request:
-    types: [opened]
-    paths:
-      - '**.prisma'
+    types: [closed]
+
 
 jobs:
-  create_a_branch:
+  deploy_deploy_request:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: Create a branch
-        uses: planetscale/create-branch-action@v1
-        id: create_branch
+      - name: Deploy a deploy request
+        uses: planetscale/deploy-deploy-request-action@v3
         with:
           org_name: ${{vars.PLANETSCALE_ORGANISATION}}
           database_name: ${{github.event.repository.name}}
-          branch_name: ${{ github.head_ref || github.ref_name }} 
-          from: main
+          number: ${{env.CURRENT_DEPLOY_REQUEST_NUMBER}}
+          wait: true
         env:
           PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
           PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}

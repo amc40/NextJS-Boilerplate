@@ -1,0 +1,72 @@
+name: Create a branch
+on:
+  pull_request:
+    types: [opened]
+    paths:
+      - '**.prisma'
+
+jobs:
+  create_deploy_request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: Create a branch
+        uses: planetscale/create-branch-action@v1
+        id: create_branch
+        with:
+          org_name: ${{vars.PLANETSCALE_ORGANISATION}}
+          database_name: ${{github.event.repository.name}}
+          branch_name: ${{ github.head_ref || github.ref_name }} 
+          from: main
+        env:
+          PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
+          PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
+      
+      - name: Create a password
+        uses: planetscale/create-branch-password-action@v1
+        id: create_password
+        with:
+          org_name: ${{vars.PLANETSCALE_ORGANISATION}}
+          database_name: ${{github.event.repository.name}}
+          branch_name: ${{ github.head_ref || github.ref_name }} 
+          name: "github-${{ github.head_ref || github.ref_name }}"
+          role: "readerwriter"
+        env:
+          PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
+          PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
+
+      - name: Set 'PLANETSCALE_DEVELOPMENT_URL'
+        uses: abhishekpaul/actions-set-secret@v1.0.3
+        with:
+          name: 'PLANETSCALE_DEVELOPMENT_URL'
+          value: "mysql://${{steps.create_password.outputs.username}}:${{steps.create_password.outputs.password}}@${{steps.create_password.outputs.hostname}}/${{github.event.repository.name}}?sslaccept=strict"
+          token: ${{ secrets.GITHUB_TOKEN  }}
+
+      - name: Push Schema to branch
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      
+      - uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 1
+          max_attempts: 3
+          command: DATABASE_URL="${{secrets.PLANETSCALE_DEVELOPMENT_URL}}" npx prisma db push 
+
+      - name: Create a deploy request
+        uses: planetscale/create-deploy-request-action@v1
+        id: create_deploy_request
+        with:
+          org_name: ${{vars.PLANETSCALE_ORGANISATION}}
+          database_name: ${{github.event.repository.name}}
+          branch_name: ${{ github.head_ref || github.ref_name }} 
+        env:
+          PLANETSCALE_SERVICE_TOKEN_ID: ${{ secrets.PLANETSCALE_SERVICE_TOKEN_ID }}
+          PLANETSCALE_SERVICE_TOKEN: ${{ secrets.PLANETSCALE_SERVICE_TOKEN }}
+      
+      - name: Set 'CURRENT_DEPLOY_REQUEST_NUMBER'
+        run: echo "CURRENT_DEPLOY_REQUEST_NUMBER=${{ steps.create_deploy_request.outputs.number }} >> $GITHUB_ENV"
+
+      # TODO add PR comment

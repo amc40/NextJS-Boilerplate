@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.15",
+    "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.0.18",
     "@planetscale/database": "^1.7.0",
     "@prisma/client": "^5.2.0",
